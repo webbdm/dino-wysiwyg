@@ -1,26 +1,65 @@
 var dinoArray = [];
 
-
 $.ajax('./db/dinosaurs.json').done(function(data) {
-        dinoArray = data.dinosaurs;
-        makeDom(dinoArray);
-    }).fail(function(error) {
-        console.log("Failed", error);
-    }).always(function() {
-        console.log("Test");
-    });
+    dinoArray = data.dinosaurs;
+    makeDom(dinoArray);
+}).fail(function(error) {
+    console.log("Failed", error);
+}).always(function() {
+    console.log("Test");
+});
 
- function makeDom(arrayToPrint){
- 	var myDomString = "";
- 	for (var i = 0; i < arrayToPrint.length; i++){
- 		myDomString += `<div class="dinoCard">`;
- 		myDomString += `<header><h1>${arrayToPrint[i].type}</h1></header>`;
- 		myDomString += `<section>`
- 		myDomString += `<img class="image" src="${arrayToPrint[i].img}">`;
- 		myDomString += `<p class="bio">${arrayToPrint[i].bio}</p>`;
- 		myDomString += `</section>`;
- 		myDomString += `<footer>${arrayToPrint[i].info}</footer>`;
- 		myDomString += `</div>`;
- 	}
- 	$("#dinosaurs").append(myDomString);
- }
+
+
+function makeDom(arrayToPrint) {
+	var counter = 0;
+    var myDomString = "";
+    var domRow = "";
+    domRow += `<div class="row">`;
+    for (var i = 0; i < arrayToPrint.length; i++) {
+        myDomString += `<div class="dinoCard col-md-3 thumbnail">`;
+        myDomString += `<header><h1>${arrayToPrint[i].type}</h1></header>`;
+        myDomString += `<section>`
+        myDomString += `<img class="image" src="${arrayToPrint[i].img}">`;
+        myDomString += `<p class="bio">${arrayToPrint[i].bio}</p>`;
+        myDomString += `</section>`;
+        myDomString += `<footer>${arrayToPrint[i].info}</footer>`;
+        myDomString += `</div>`;
+
+        counter += 1;
+
+        if (counter % 3 === 0) { // Cap the row every 3 cards 
+            domRow += `</div>`;
+            myDomString += domRow;
+            domRow = "";
+            domRow += `<div class="row">`;
+        } else if (counter === arrayToPrint.length) { // Add the closing tag to a row here if it's the last car in the array
+            myDomString += `</div>`;
+        }
+
+    }
+    console.log(myDomString);
+    $("#dinosaurs").append(myDomString);
+}
+
+$("#dinosaurs").on("click", ".dinoCard", function(e) {
+    $(".dinoCard").removeClass("dottedBorder");
+    $(this).addClass("dottedBorder");
+    var input = $("#textbox");
+    input.val("").focus();
+
+})
+
+var input = $("#textbox");
+input.keyup(mirrorText);
+
+function mirrorText(e) {
+    var selectedCard = $(".dottedBorder");
+    var bioTyped = input.val();
+    var bio = $(".dottedBorder").find("p.bio");
+    bio.html(bioTyped);
+
+    if (e.which === 13) {
+        $("#textbox").val("");
+    }
+}

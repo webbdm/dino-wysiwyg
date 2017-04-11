@@ -1,0 +1,29 @@
+.dottedBorder {
+    border: 2px dotted black;
+    border-radius: 5px;
+}
+
+.dinoCard {
+	text-align: center;
+
+}
+
+.dinoCard img {
+
+	height: 100px;
+	width: 100px;
+
+}
+
+#dinosaurs .dinoCard {
+	background-color: blue;
+}
+
+#dinosaurs .row:nth-of-type(even) .dinoCard:nth-of-type(even){
+	background-color: goldenrod;
+}
+
+#dinosaurs .row:nth-of-type(odd) .dinoCard:nth-of-type(odd){
+	background-color: goldenrod;
+}
+
