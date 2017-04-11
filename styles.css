@@ -15,6 +15,11 @@
 
 }
 
+/*.thumbnail{
+	height:340px;
+	width: 340px;
+}*/
+
 #dinosaurs .dinoCard {
 	background-color: blue;
 }
