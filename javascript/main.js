@@ -17,7 +17,7 @@ function makeDom(arrayToPrint) {
     var domRow = "";
     domRow += `<div class="row">`;
     for (var i = 0; i < arrayToPrint.length; i++) {
-        domRow += `<div class="dinoCard col-md-3 thumbnail">`;
+        domRow += `<div class="dinoCard col-md-4 thumbnail">`;
         domRow += `<header><h1>${arrayToPrint[i].type}</h1></header>`;
         domRow += `<section>`
         domRow += `<img class="image" src="${arrayToPrint[i].img}">`;
